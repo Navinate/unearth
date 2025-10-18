@@ -9,6 +9,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.14.5"
+    "@astrojs/svelte": "^7.2.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "airtable": "^0.12.2",
+    "astro": "^5.14.5",
+    "svelte": "^5.40.2",
+    "tailwindcss": "^4.1.14",
+    "typescript": "^5.9.3"
   }
 }
