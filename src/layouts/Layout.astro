@@ -1,35 +1,41 @@
 ---
-import '../styles/app.css';
+import "../styles/app.css";
 ---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-	    <div class="container">
-			<header>
-			    <div class="bg-red-500 rounded-lg">Header</div>
-			</header>
-			<main>
-			<slot />
-			</main>
-		</div>
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>unearth</title>
+    </head>
+    <body>
+        <div
+            class="w-full h-full flex flex-col gap-8 bg-stone-300 text-green-950"
+        >
+            <header class="p-8 flex justify-end">
+                <a href="/">
+                    <h1 class="text-right">
+                        unearth<br />.club
+                    </h1>
+                </a>
+            </header>
+            <main
+                class="mx-auto md:w-3/4 w-full h-full flex flex-col gap-8 items-center"
+            >
+                <slot />
+            </main>
+        </div>
+    </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-	.container {
-	    width:100%;
-	}
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
 </style>

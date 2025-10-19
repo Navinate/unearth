@@ -1,0 +1,79 @@
+---
+import { actions } from "astro:actions";
+---
+
+<form
+    method="POST"
+    action={actions.submitToNotion}
+    class="flex flex-col gap-2 p-2 max-w-2xl w-full stretch"
+>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">what do you call the media?</legend>
+        <input type="text" name="title" placeholder="Mona Lisa" class="input" />
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">what medium is the media?</legend>
+        <select name="mediaType" required class="select">
+            <option disabled selected hidden value="">Select media type</option>
+            <option value="Text">Text</option>
+            <option value="Video">Video</option>
+            <option value="Audio">Audio</option>
+            <option value="Image">Image</option>
+            <option value="Interactive">Interactive</option>
+            <option value="Other">???</option>
+        </select>
+    </fieldset>
+
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend"
+            >decribe why your submission is awesome!</legend
+        >
+        <textarea
+            name="description"
+            required
+            placeholder="this song is cool because..."
+            class="textarea"></textarea>
+    </fieldset>
+
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">where can the media be found?</legend>
+        <input
+            type="url"
+            name="link"
+            required
+            placeholder="https://"
+            class="input"
+        />
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend class="fieldset-legend">what is your name?</legend>
+
+        <input type="text" name="name" class="input" placeholder="optional" />
+        <p class="label">
+            if you want to be credited if your submission is selected
+        </p>
+    </fieldset>
+    <button type="submit" class="btn">Submit</button>
+</form>
+
+<style>
+    @reference "@styles/app.css";
+
+    .input,
+    .textarea,
+    .select {
+        outline: none !important;
+        @apply rounded-md bg-stone-100;
+    }
+    .fieldset-legend {
+        @apply text-xl;
+    }
+
+    .label {
+        @apply text-sm italic;
+    }
+
+    * {
+        @apply text-green-950;
+    }
+</style>
