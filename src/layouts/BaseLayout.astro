@@ -15,25 +15,43 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     </head>
     <body>
         <div
-            class="w-full h-full flex flex-col gap-8 bg-stone-300 text-green-950"
+            class="w-full h-full bg-stone-300 text-green-950 bg-cover bg-center bg-no-repeat bg-[url('/rock.png')]"
         >
-            <header class="p-8 flex justify-end">
+            <header class="p-8 absolute flex justify-end right-0">
                 <a href="/">
-                    <h1 class="text-right">
+                    <h1 class="text-right coming-soon">
                         unearth<br />.club
                     </h1>
                 </a>
             </header>
             <main
-                class="mx-auto md:w-3/4 w-full h-full flex flex-col gap-8 items-center"
+                class="mx-auto md:w-3/4 w-full h-full flex flex-col gap-8 items-center justify-center"
             >
-                <slot />
+                <h1 class="text-center coming-soon">Coming soon...</h1>
+                <!-- <slot /> -->
             </main>
         </div>
         <Analytics />
         <SpeedInsights />
     </body>
 </html>
+<script>
+    const elements = document.querySelectorAll(".coming-soon");
+
+    document.addEventListener("mousemove", (e) => {
+        elements.forEach((element) => {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const distance = Math.hypot(
+                e.clientX - centerX,
+                e.clientY - centerY,
+            );
+
+            element.style.filter = `blur(${distance / 100}px)`;
+        });
+    });
+</script>
 
 <style>
     html,
