@@ -1,5 +1,6 @@
 ---
 import "../styles/app.css";
+import Analytics from "@vercel/analytics/astro";
 ---
 
 <!doctype html>
@@ -28,6 +29,7 @@ import "../styles/app.css";
                 <slot />
             </main>
         </div>
+        <Analytics />
     </body>
 </html>
 
