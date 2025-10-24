@@ -8,15 +8,15 @@
 @plugin "@tailwindcss/typography";
 
 @font-face {
-    font-family: "UT Bekidos Soft";
-    src: url("/UT Bekidos Soft.ttf") format("truetype");
+    font-family: "UT Bekidos";
+    src: url("/UT Bekidos.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: "Boldonse";
-    src: url("/Boldonse-Regular.ttf") format("truetype");
+    font-family: "Faculty Glyphic";
+    src: url("/FacultyGlyphic-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
@@ -35,14 +35,14 @@
 }
 
 h1 {
-    @apply text-8xl;
-    font-family: "UT Bekidos Soft", sans-serif;
+    @apply text-7xl sm:text-8xl text-green-900;
+    font-family: "UT Bekidos", sans-serif;
 }
 
 h2 {
-    @apply text-4xl;
-    font-family: "Boldonse", sans-serif;
-    line-height: 1.3;
+    @apply text-3xl sm:text-4xl;
+    font-family: "Faculty Glyphic", sans-serif;
+    line-height: 1.2;
 }
 
 .btn {

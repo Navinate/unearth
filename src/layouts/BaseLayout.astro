@@ -2,22 +2,21 @@
 import "../styles/app.css";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import BackgroundImage from "@components/Background.astro";
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
         <title>unearth</title>
     </head>
     <body>
-        <div
-            class="w-full h-full bg-stone-300 text-green-950 bg-cover bg-center bg-no-repeat bg-[url('/rock.png')]"
-        >
-            <header class="p-8 absolute flex justify-end right-0">
+        <BackgroundImage>
+            <header class="p-2">
                 <a href="/">
                     <h1 class="text-right coming-soon">
                         unearth<br />.club
@@ -25,34 +24,15 @@ import SpeedInsights from "@vercel/speed-insights/astro";
                 </a>
             </header>
             <main
-                class="mx-auto md:w-3/4 w-full h-full flex flex-col gap-8 items-center justify-center"
+                class="mx-auto max-w-5xl px-2 mt-8 w-full flex flex-col gap-2 items-center justify-center"
             >
-                <h1 class="text-center coming-soon">Coming soon...</h1>
-                <!-- <slot /> -->
+                <slot />
             </main>
-        </div>
+        </BackgroundImage>
         <Analytics />
         <SpeedInsights />
     </body>
 </html>
-<script>
-    const elements = document.querySelectorAll(".coming-soon");
-
-    document.addEventListener("mousemove", (e) => {
-        elements.forEach((element) => {
-            const rect = element.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const distance = Math.hypot(
-                e.clientX - centerX,
-                e.clientY - centerY,
-            );
-
-            element.style.filter = `blur(${distance / 100}px)`;
-        });
-    });
-</script>
-
 <style>
     html,
     body {

@@ -1,5 +1,11 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
+import { getDataSource, mediaDBNotionID } from "../lib/notion";
+
+const pages = await getDataSource(mediaDBNotionID);
+
+// Extract properties (adjust based on your schema)
+console.log(pages);
 ---
 
 <Layout>

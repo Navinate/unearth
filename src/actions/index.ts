@@ -1,6 +1,6 @@
 import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
-import { notion, submissionDBNotionID, mediaDBNotionID } from "@lib/globals";
+import { notion, submissionDBNotionID } from "@lib/notion";@lib/notion
 
 export const server = {
     submitToNotion: defineAction({
@@ -50,34 +50,6 @@ export const server = {
                     },
                 ],
             });
-        },
-    }),
-    getCurrentMedia: defineAction({
-        handler: async () => {
-            const today = new Date().toISOString().split("T")[0];
-            //weird hack to avoid ts error where databases does not have query
-            const databases: any = notion.databases;
-            const response = await databases.query({
-                database_id: mediaDBNotionID,
-                filter: {
-                    and: [
-                        {
-                            property: "viewableDate",
-                            date: {
-                                on_or_after: today,
-                            },
-                        },
-                        {
-                            property: "viewableDate",
-                            date: {
-                                on_or_before: today,
-                            },
-                        },
-                    ],
-                },
-            });
-
-            return response.results;
         },
     }),
 };

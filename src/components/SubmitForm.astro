@@ -5,12 +5,13 @@ import { actions } from "astro:actions";
 <form
     method="POST"
     action={actions.submitToNotion}
-    class="flex flex-col gap-2 p-2 max-w-2xl w-full stretch"
+    class="gap-2 p-2 max-w-2xl w-full grid grid-cols-[1fr] grid-rows-auto sm:grid-cols-2 md:grid-rows-[2fr_2fr_3fr_1fr]"
 >
     <fieldset class="fieldset">
         <legend class="fieldset-legend">what do you call the media?</legend>
         <input type="text" name="title" placeholder="Mona Lisa" class="input" />
     </fieldset>
+
     <fieldset class="fieldset">
         <legend class="fieldset-legend">what medium is the media?</legend>
         <select name="mediaType" required class="select">
@@ -25,18 +26,7 @@ import { actions } from "astro:actions";
     </fieldset>
 
     <fieldset class="fieldset">
-        <legend class="fieldset-legend"
-            >decribe why your submission is awesome!</legend
-        >
-        <textarea
-            name="description"
-            required
-            placeholder="this song is cool because..."
-            class="textarea"></textarea>
-    </fieldset>
-
-    <fieldset class="fieldset">
-        <legend class="fieldset-legend">where can the media be found?</legend>
+        <legend class="fieldset-legend">link to the media?</legend>
         <input
             type="url"
             name="link"
@@ -45,15 +35,28 @@ import { actions } from "astro:actions";
             class="input"
         />
     </fieldset>
+
     <fieldset class="fieldset">
         <legend class="fieldset-legend">what is your name?</legend>
 
         <input type="text" name="name" class="input" placeholder="optional" />
-        <p class="label">
-            if you want to be credited if your submission is selected
-        </p>
+        <p class="label">if you want to be credited for submission</p>
     </fieldset>
-    <button type="submit" class="btn">Submit</button>
+
+    <fieldset class="fieldset sm:col-span-2 w-full">
+        <legend class="fieldset-legend"
+            >decribe why your submission is awesome!</legend
+        >
+        <textarea
+            name="description"
+            required
+            placeholder="this song is cool because..."
+            class="textarea w-full"></textarea>
+    </fieldset>
+
+    <div class="sm:col-span-2 w-full flex justify-center items-center">
+        <button type="submit" class="btn">Submit</button>
+    </div>
 </form>
 
 <style>
@@ -63,10 +66,12 @@ import { actions } from "astro:actions";
     .textarea,
     .select {
         outline: none !important;
-        @apply rounded-md bg-stone-100;
+        @apply rounded-md bg-stone-100 w-full;
+        box-shadow: var(--shadow-md);
     }
     .fieldset-legend {
-        @apply text-xl;
+        @apply text-2xl;
+        font-family: "Faculty Glyphic", sans-serif;
     }
 
     .label {
