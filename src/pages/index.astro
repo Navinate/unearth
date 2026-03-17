@@ -1,25 +1,88 @@
 ---
+export const prerender = true;
+
 import Layout from "../layouts/BaseLayout.astro";
-import { getDataSource, mediaDBNotionID } from "../lib/notion";
+import { getCurrentWeekMedia } from "../lib/notion";
+import WeekIndicator from "@components/WeekIndicator.astro";
+import EmptyState from "@components/EmptyState.astro";
+import MediaCard from "@components/MediaCard.astro";
 
-const pages = await getDataSource(mediaDBNotionID);
-
-// Extract properties (adjust based on your schema)
-console.log(pages);
+const pages = await getCurrentWeekMedia();
 ---
 
 <Layout>
-    <p>Some copy about how humans make cool stuff</p>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eleifend,
-        dui sed luctus varius, arcu est porttitor lacus, in tempor ipsum ipsum
-        ac quam. Ut commodo dolor neque, sed mollis risus venenatis in.
-        Phasellus tincidunt est nec nunc consectetur posuere. Cras a eros vel
-        libero sagittis porttitor vitae nec eros. Curabitur a finibus nibh.
-        Nullam cursus ultrices dui vitae feugiat. Phasellus faucibus convallis
-        ante eget malesuada. Fusce iaculis libero malesuada massa cursus
-        imperdiet eu eget arcu.
-    </p>
-    <p>Featured content</p>
-    <a href="/submit" class="btn">Want to suggest something?</a>
+	<WeekIndicator />
+
+	{
+		pages.length > 0 ? (
+			<div class="media-grid">
+				{pages.map((page) => (
+					<MediaCard page={page} />
+				))}
+			</div>
+		) : (
+			<EmptyState />
+		)
+	}
+
+	{
+		pages.length > 0 && (
+			<div class="cta">
+				<a href="/submit" class="btn">
+					Know something worth sharing?
+				</a>
+			</div>
+		)
+	}
 </Layout>
+
+<style>
+	@reference "@styles/app.css";
+
+	.media-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+		width: 100%;
+	}
+
+	@media (min-width: 768px) {
+		.media-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	.cta {
+		text-align: center;
+		padding: 2rem 0;
+	}
+</style>
+
+<script>
+	// Open modal when card is clicked
+	document.querySelectorAll<HTMLElement>("[data-modal-target]").forEach((card) => {
+		card.addEventListener("click", () => {
+			const modalId = card.dataset.modalTarget;
+			if (!modalId) return;
+			const dialog = document.getElementById(modalId) as HTMLDialogElement | null;
+			dialog?.showModal();
+		});
+	});
+
+	// Close modal via close button
+	document.querySelectorAll<HTMLElement>("[data-modal-close]").forEach((btn) => {
+		btn.addEventListener("click", () => {
+			const dialog = btn.closest("dialog") as HTMLDialogElement | null;
+			dialog?.close();
+		});
+	});
+
+	// Close modal on backdrop click
+	document.querySelectorAll<HTMLDialogElement>("dialog.media-modal").forEach((dialog) => {
+		dialog.addEventListener("click", (e) => {
+			if (e.target === dialog) {
+				dialog.close();
+			}
+		});
+	});
+</script>

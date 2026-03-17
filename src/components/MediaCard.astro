@@ -1,0 +1,128 @@
+---
+import type { Page } from "@types/index";
+import MediaTypeBadge from "./MediaTypeBadge.astro";
+import MediaModal from "./MediaModal.astro";
+
+interface Props {
+	page: Page;
+}
+
+const { page } = Astro.props;
+const modalId = `modal-${page.id}`;
+const hasCover = !!page.coverImage;
+---
+
+<button class="media-card" data-modal-target={modalId} type="button">
+	{hasCover && (
+		<div class="cover-image">
+			<img src={page.coverImage} alt={page.title} loading="lazy" />
+		</div>
+	)}
+
+	<div class="card-body">
+		<div class="card-header">
+			<MediaTypeBadge type={page.mediaType} />
+			{page.creator && <span class="creator">{page.creator}</span>}
+		</div>
+
+		<h3 class="title">{page.title}</h3>
+
+		{page.content && <p class="description">{page.content}</p>}
+
+		<div class="card-footer">
+			{page.submitter && <span class="submitter">submitted by {page.submitter}</span>}
+		</div>
+	</div>
+</button>
+
+<MediaModal page={page} modalId={modalId} />
+
+<style>
+	@reference "@styles/app.css";
+
+	.media-card {
+		all: unset;
+		cursor: pointer;
+		background: var(--color-bg-secondary);
+		border: 1px solid var(--color-border-subtle);
+		border-radius: 0.75rem;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		transition:
+			box-shadow 0.2s ease,
+			transform 0.2s ease;
+		text-align: left;
+	}
+
+	.media-card:hover {
+		box-shadow: var(--shadow-m);
+		transform: translateY(-2px);
+	}
+
+	.media-card:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
+	}
+
+	.cover-image {
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.cover-image img {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+		display: block;
+	}
+
+	.card-body {
+		padding: 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		flex: 1;
+	}
+
+	.card-header {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.creator {
+		font-family: "Faculty Glyphic", sans-serif;
+		color: var(--color-text-secondary);
+		@apply text-sm;
+	}
+
+	.title {
+		@apply text-xl;
+		font-family: "Faculty Glyphic", sans-serif;
+		color: var(--color-text-primary);
+		margin: 0;
+		line-height: 1.3;
+	}
+
+	.description {
+		color: var(--color-text-secondary);
+		@apply text-sm;
+		margin: 0;
+		line-height: 1.5;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.card-footer {
+		margin-top: auto;
+	}
+
+	.submitter {
+		color: var(--color-text-muted);
+		@apply text-xs;
+		font-style: italic;
+	}
+</style>

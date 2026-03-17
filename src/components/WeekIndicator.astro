@@ -1,0 +1,35 @@
+---
+import { formatWeekRange } from "@lib/dateHelpers";
+
+const weekRange = formatWeekRange();
+---
+
+<div class="week-indicator">
+	<p class="label">This week's discoveries</p>
+	<p class="range">{weekRange}</p>
+</div>
+
+<style>
+	@reference "@styles/app.css";
+
+	.week-indicator {
+		text-align: center;
+		margin-bottom: 1rem;
+	}
+
+	.label {
+		font-family: "Faculty Glyphic", sans-serif;
+		color: var(--color-text-muted);
+		@apply text-lg;
+		text-transform: lowercase;
+		letter-spacing: 0.05em;
+		margin: 0;
+	}
+
+	.range {
+		font-family: "Faculty Glyphic", sans-serif;
+		color: var(--color-text-secondary);
+		@apply text-base;
+		margin: 0.25rem 0 0;
+	}
+</style>

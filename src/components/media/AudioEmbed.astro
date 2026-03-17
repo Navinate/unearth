@@ -1,0 +1,36 @@
+---
+interface Props {
+	embedUrl: string;
+	provider: string;
+	title: string;
+}
+
+const { embedUrl, provider, title } = Astro.props;
+
+const height = provider === "spotify" ? "352" : "166";
+---
+
+<div class="audio-container">
+	<iframe
+		src={embedUrl}
+		title={title}
+		width="100%"
+		height={height}
+		frameborder="0"
+		allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+		loading="lazy"
+	></iframe>
+</div>
+
+<style>
+	.audio-container {
+		width: 100%;
+		border-radius: 0.5rem;
+		overflow: hidden;
+	}
+
+	.audio-container iframe {
+		border: none;
+		display: block;
+	}
+</style>

@@ -1,0 +1,52 @@
+---
+import { extractDomain } from "@lib/embedHelpers";
+
+interface Props {
+	url: string;
+	title: string;
+}
+
+const { url, title } = Astro.props;
+const domain = extractDomain(url);
+---
+
+<a href={url} target="_blank" rel="noopener noreferrer" class="link-card">
+	<span class="link-title">{title}</span>
+	{domain && <span class="link-domain">{domain}</span>}
+</a>
+
+<style>
+	@reference "@styles/app.css";
+
+	.link-card {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		padding: 0.75rem 1rem;
+		border: 1px solid var(--color-border);
+		border-radius: 0.5rem;
+		background: var(--color-bg-primary);
+		text-decoration: none;
+		transition:
+			background 0.2s ease,
+			border-color 0.2s ease;
+	}
+
+	.link-card:hover {
+		background: var(--color-bg-tertiary);
+		border-color: var(--color-accent-light);
+	}
+
+	.link-title {
+		color: var(--color-accent-dark);
+		font-family: "Faculty Glyphic", sans-serif;
+		@apply text-sm;
+	}
+
+	.link-domain {
+		color: var(--color-text-muted);
+		@apply text-xs;
+		flex-shrink: 0;
+	}
+</style>

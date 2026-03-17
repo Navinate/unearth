@@ -13,6 +13,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# build-time downloaded media
+public/media/
+
 # environment variables
 .env
 .env.production

@@ -14,8 +14,6 @@ module.exports = {
         extend: {
             fontFamily: {
                 bekidos: ["UT Bekidos", "sans-serif"],
-                "bekidos-soft": ["UT Bekidos Soft", "sans-serif"],
-                boldonse: ["Boldonse", "sans-serif"],
             },
         },
     },

@@ -4,6 +4,32 @@ import SubmitForm from "@components/SubmitForm.astro";
 ---
 
 <Layout>
-    <h2 class="text-center">Submit media to be featured on unearth.club!</h2>
-    <SubmitForm />
+	<div class="submit-page">
+		<h2>Submit something worth discovering</h2>
+		<p class="subtitle">Share media that moved, surprised, or taught you something.</p>
+		<SubmitForm />
+	</div>
 </Layout>
+
+<style>
+	@reference "@styles/app.css";
+
+	.submit-page {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		width: 100%;
+	}
+
+	.submit-page h2 {
+		text-align: center;
+	}
+
+	.subtitle {
+		color: var(--color-text-muted);
+		@apply text-lg;
+		text-align: center;
+		margin: 0;
+	}
+</style>
