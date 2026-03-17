@@ -1,0 +1,31 @@
+---
+
+---
+
+<div class="empty-state">
+	<p class="message">Nothing unearthed this week.</p>
+	<p class="subtext">Check back Sunday.</p>
+	<a href="/submit" class="btn">Know something worth sharing?</a>
+</div>
+
+<style>
+	@reference "@styles/app.css";
+
+	.empty-state {
+		text-align: center;
+		padding: 4rem 1rem;
+	}
+
+	.message {
+		font-family: "Faculty Glyphic", sans-serif;
+		color: var(--color-text-primary);
+		@apply text-2xl;
+		margin: 0 0 0.5rem;
+	}
+
+	.subtext {
+		color: var(--color-text-muted);
+		@apply text-lg;
+		margin: 0 0 2rem;
+	}
+</style>

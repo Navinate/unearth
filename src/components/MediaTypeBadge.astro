@@ -1,0 +1,57 @@
+---
+import type { MediaType } from "@types/index";
+
+interface Props {
+	type: MediaType;
+}
+
+const { type } = Astro.props;
+---
+
+<span class={`badge badge-${type.toLowerCase()}`}>{type}</span>
+
+<style>
+	@reference "@styles/app.css";
+
+	.badge {
+		font-family: "Faculty Glyphic", sans-serif;
+		@apply text-xs;
+		padding: 0.2rem 0.6rem;
+		border-radius: 9999px;
+		text-transform: lowercase;
+		letter-spacing: 0.03em;
+		background: var(--color-bg-tertiary);
+		color: var(--color-text-secondary);
+		border: 1px solid var(--color-border);
+	}
+
+	.badge-video {
+		background: #e8efe5;
+		color: var(--color-accent-dark);
+		border-color: var(--color-accent-light);
+	}
+
+	.badge-audio {
+		background: #eee8e0;
+		color: #8b6f5c;
+		border-color: #d4c4b4;
+	}
+
+	.badge-image {
+		background: #e5eaef;
+		color: #5c6b8b;
+		border-color: #b4c4d4;
+	}
+
+	.badge-text {
+		background: #efe8e5;
+		color: #7a6b5c;
+		border-color: #d4ccc4;
+	}
+
+	.badge-interactive {
+		background: #e8e5ef;
+		color: #6b5c8b;
+		border-color: #c4b4d4;
+	}
+</style>
