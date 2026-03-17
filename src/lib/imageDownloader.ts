@@ -1,11 +1,16 @@
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const MEDIA_DIR = "public/media";
+const PUBLIC_MEDIA_DIR = "public/media";
+const BUILD_MEDIA_DIR = "dist/client/media";
 
-function ensureMediaDir(): void {
-	if (!existsSync(MEDIA_DIR)) {
-		mkdirSync(MEDIA_DIR, { recursive: true });
+function getMediaDir(): string {
+	return import.meta.env.PROD ? BUILD_MEDIA_DIR : PUBLIC_MEDIA_DIR;
+}
+
+function ensureMediaDir(dir: string): void {
+	if (!existsSync(dir)) {
+		mkdirSync(dir, { recursive: true });
 	}
 }
 
@@ -30,7 +35,8 @@ export async function downloadImage(
 	url: string,
 	pageId: string,
 ): Promise<string> {
-	ensureMediaDir();
+	const mediaDir = getMediaDir();
+	ensureMediaDir(mediaDir);
 
 	try {
 		const response = await fetch(url);
@@ -42,7 +48,7 @@ export async function downloadImage(
 		const contentType = response.headers.get("content-type") ?? undefined;
 		const ext = getExtension(url, contentType);
 		const filename = `${pageId}.${ext}`;
-		const filepath = join(MEDIA_DIR, filename);
+		const filepath = join(mediaDir, filename);
 
 		const buffer = Buffer.from(await response.arrayBuffer());
 		writeFileSync(filepath, buffer);
