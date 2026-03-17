@@ -9,12 +9,12 @@ import { actions } from "astro:actions";
 >
 	<fieldset class="fieldset">
 		<legend class="fieldset-legend">what do you call the media?</legend>
-		<input type="text" name="title" required placeholder="Mona Lisa" class="input" />
+		<input type="text" name="title" required placeholder="e.g., Mona Lisa…" autocomplete="off" class="input" />
 	</fieldset>
 
 	<fieldset class="fieldset">
 		<legend class="fieldset-legend">what medium is the media?</legend>
-		<select name="mediaType" required class="select">
+		<select name="mediaType" required autocomplete="off" class="select">
 			<option disabled selected hidden value="">Select media type</option>
 			<option value="Text">Text</option>
 			<option value="Video">Video</option>
@@ -31,14 +31,15 @@ import { actions } from "astro:actions";
 			type="url"
 			name="link"
 			required
-			placeholder="https://"
+			placeholder="https://example.com…"
+			autocomplete="url"
 			class="input"
 		/>
 	</fieldset>
 
 	<fieldset class="fieldset">
 		<legend class="fieldset-legend">what is your name?</legend>
-		<input type="text" name="name" class="input" placeholder="optional" />
+		<input type="text" name="name" class="input" placeholder="Your name…" autocomplete="name" />
 		<p class="label">if you want to be credited for submission</p>
 	</fieldset>
 
@@ -47,7 +48,7 @@ import { actions } from "astro:actions";
 		<textarea
 			name="description"
 			required
-			placeholder="this song is cool because..."
+			placeholder="This song is cool because…"
 			class="textarea w-full"></textarea>
 	</fieldset>
 
@@ -78,7 +79,6 @@ import { actions } from "astro:actions";
 	.input,
 	.textarea,
 	.select {
-		outline: none !important;
 		width: 100%;
 		border-radius: 0.375rem;
 		background: var(--color-bg-primary);
@@ -90,9 +90,9 @@ import { actions } from "astro:actions";
 			box-shadow 0.2s ease;
 	}
 
-	.input:focus,
-	.textarea:focus,
-	.select:focus {
+	.input:focus-visible,
+	.textarea:focus-visible,
+	.select:focus-visible {
 		border-color: var(--color-accent);
 		box-shadow: 0 0 0 2px var(--color-accent-light);
 	}
