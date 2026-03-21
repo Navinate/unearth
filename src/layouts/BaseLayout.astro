@@ -6,10 +6,19 @@ import BackgroundImage from "@components/Background.astro";
 
 interface Props {
 	title?: string;
+	description?: string;
+	ogImage?: string;
 }
 
-const { title } = Astro.props;
-const pageTitle = title ? `${title} | unearth.club` : "unearth.club";
+const siteName = "unearth.club";
+const siteUrl = "https://unearth.club";
+const {
+	title = siteName,
+	description = "Weekly curated media discoveries — videos, articles, music, and more worth sharing.",
+	ogImage = `${siteUrl}/og-image.png`,
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 ---
 
 <!doctype html>
@@ -18,11 +27,29 @@ const pageTitle = title ? `${title} | unearth.club` : "unearth.club";
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="canonical" href={canonicalUrl} />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- SEO -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:image" content={ogImage} />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
 		<meta name="theme-color" content="#faf8f5" />
 		<link rel="preload" href="/UT Bekidos.ttf" as="font" type="font/truetype" crossorigin />
 		<link rel="preload" href="/FacultyGlyphic-Regular.ttf" as="font" type="font/truetype" crossorigin />
-		<title>{pageTitle}</title>
 	</head>
 	<body>
 		<a href="#main-content" class="skip-link">Skip to content</a>
