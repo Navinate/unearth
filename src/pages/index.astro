@@ -59,13 +59,19 @@ const pages = await getCurrentWeekMedia();
 </style>
 
 <script>
+	// Track the element that triggered the modal so we can restore focus on close
+	let triggerElement: HTMLElement | null = null;
+
 	// Open modal when card is clicked
 	document.querySelectorAll<HTMLElement>("[data-modal-target]").forEach((card) => {
 		card.addEventListener("click", () => {
 			const modalId = card.dataset.modalTarget;
 			if (!modalId) return;
 			const dialog = document.getElementById(modalId) as HTMLDialogElement | null;
-			dialog?.showModal();
+			if (dialog) {
+				triggerElement = card;
+				dialog.showModal();
+			}
 		});
 	});
 
@@ -77,12 +83,17 @@ const pages = await getCurrentWeekMedia();
 		});
 	});
 
-	// Close modal on backdrop click
+	// Close modal on backdrop click and restore focus on close
 	document.querySelectorAll<HTMLDialogElement>("dialog.media-modal").forEach((dialog) => {
 		dialog.addEventListener("click", (e) => {
 			if (e.target === dialog) {
 				dialog.close();
 			}
+		});
+
+		dialog.addEventListener("close", () => {
+			triggerElement?.focus();
+			triggerElement = null;
 		});
 	});
 </script>
