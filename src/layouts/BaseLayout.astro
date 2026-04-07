@@ -3,6 +3,22 @@ import "../styles/app.css";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import BackgroundImage from "@components/Background.astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+	ogImage?: string;
+}
+
+const siteName = "unearth.club";
+const siteUrl = "https://unearth.club";
+const {
+	title = siteName,
+	description = "Weekly curated media discoveries — videos, articles, music, and more worth sharing.",
+	ogImage = `${siteUrl}/og-image.png`,
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 ---
 
 <!doctype html>
@@ -11,10 +27,32 @@ import BackgroundImage from "@components/Background.astro";
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="canonical" href={canonicalUrl} />
 		<meta name="generator" content={Astro.generator} />
-		<title>unearth.club</title>
+
+		<!-- SEO -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:image" content={ogImage} />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="theme-color" content="#faf8f5" />
+		<link rel="preload" href="/UT Bekidos.ttf" as="font" type="font/truetype" crossorigin />
+		<link rel="preload" href="/FacultyGlyphic-Regular.ttf" as="font" type="font/truetype" crossorigin />
 	</head>
 	<body>
+		<a href="#main-content" class="skip-link">Skip to content</a>
 		<BackgroundImage>
 			<header class="header">
 				<a href="/" class="logo">
@@ -25,7 +63,7 @@ import BackgroundImage from "@components/Background.astro";
 					<a href="/submit" class="nav-link">submit</a>
 				</nav>
 			</header>
-			<main class="main">
+			<main id="main-content" class="main">
 				<slot />
 			</main>
 		</BackgroundImage>
@@ -36,6 +74,23 @@ import BackgroundImage from "@components/Background.astro";
 
 <style>
 	@reference "@styles/app.css";
+
+	.skip-link {
+		position: absolute;
+		top: -100%;
+		left: 1rem;
+		z-index: 100;
+		padding: 0.5rem 1rem;
+		background: var(--color-accent);
+		color: var(--color-bg-primary);
+		border-radius: 0.375rem;
+		text-decoration: none;
+		font-family: "Faculty Glyphic", sans-serif;
+	}
+
+	.skip-link:focus {
+		top: 1rem;
+	}
 
 	html,
 	body {

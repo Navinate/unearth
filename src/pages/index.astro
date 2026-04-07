@@ -10,7 +10,7 @@ import MediaCard from "@components/MediaCard.astro";
 const pages = await getCurrentWeekMedia();
 ---
 
-<Layout>
+<Layout title="unearth.club — Weekly Media Discoveries" description="Browse this week's curated media recommendations — videos, articles, music, and more worth sharing.">
 	<WeekIndicator />
 
 	{
@@ -59,6 +59,9 @@ const pages = await getCurrentWeekMedia();
 </style>
 
 <script>
+	// Track the element that triggered the modal so we can restore focus on close
+	let triggerElement: HTMLElement | null = null;
+
 	// Open modal when card is clicked
 	document
 		.querySelectorAll<HTMLElement>("[data-modal-target]")
@@ -69,8 +72,11 @@ const pages = await getCurrentWeekMedia();
 				const dialog = document.getElementById(
 					modalId,
 				) as HTMLDialogElement | null;
-				dialog?.showModal();
-			});
+				if (dialog) {
+				triggerElement = card;
+				dialog.showModal();
+				}
+		});
 		});
 
 	// Close modal via close button
@@ -83,7 +89,7 @@ const pages = await getCurrentWeekMedia();
 			});
 		});
 
-	// Close modal on backdrop click
+	// Close modal on backdrop click and restore focus on close
 	document
 		.querySelectorAll<HTMLDialogElement>("dialog.media-modal")
 		.forEach((dialog) => {
@@ -92,5 +98,10 @@ const pages = await getCurrentWeekMedia();
 					dialog.close();
 				}
 			});
+	
+		dialog.addEventListener("close", () => {
+			triggerElement?.focus();
+			triggerElement = null;
 		});
+	});
 </script>

@@ -12,6 +12,7 @@
 	src: url("/UT Bekidos.ttf") format("truetype");
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -19,6 +20,7 @@
 	src: url("/FacultyGlyphic-Regular.ttf") format("truetype");
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 
 :root {
@@ -74,7 +76,6 @@ p {
 }
 
 .btn {
-	outline: none !important;
 	@apply rounded-md text-lg;
 	background: var(--color-accent);
 	color: var(--color-bg-primary);
@@ -84,4 +85,26 @@ p {
 
 .btn:hover {
 	background: var(--color-accent-dark);
+}
+
+.btn:focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 2px;
+}
+
+button,
+a,
+[role="button"] {
+	touch-action: manipulation;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 }
