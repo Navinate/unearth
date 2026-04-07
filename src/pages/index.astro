@@ -63,34 +63,42 @@ const pages = await getCurrentWeekMedia();
 	let triggerElement: HTMLElement | null = null;
 
 	// Open modal when card is clicked
-	document.querySelectorAll<HTMLElement>("[data-modal-target]").forEach((card) => {
-		card.addEventListener("click", () => {
-			const modalId = card.dataset.modalTarget;
-			if (!modalId) return;
-			const dialog = document.getElementById(modalId) as HTMLDialogElement | null;
-			if (dialog) {
+	document
+		.querySelectorAll<HTMLElement>("[data-modal-target]")
+		.forEach((card) => {
+			card.addEventListener("click", () => {
+				const modalId = card.dataset.modalTarget;
+				if (!modalId) return;
+				const dialog = document.getElementById(
+					modalId,
+				) as HTMLDialogElement | null;
+				if (dialog) {
 				triggerElement = card;
 				dialog.showModal();
-			}
+				}
 		});
-	});
+		});
 
 	// Close modal via close button
-	document.querySelectorAll<HTMLElement>("[data-modal-close]").forEach((btn) => {
-		btn.addEventListener("click", () => {
-			const dialog = btn.closest("dialog") as HTMLDialogElement | null;
-			dialog?.close();
+	document
+		.querySelectorAll<HTMLElement>("[data-modal-close]")
+		.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				const dialog = btn.closest("dialog") as HTMLDialogElement | null;
+				dialog?.close();
+			});
 		});
-	});
 
 	// Close modal on backdrop click and restore focus on close
-	document.querySelectorAll<HTMLDialogElement>("dialog.media-modal").forEach((dialog) => {
-		dialog.addEventListener("click", (e) => {
-			if (e.target === dialog) {
-				dialog.close();
-			}
-		});
-
+	document
+		.querySelectorAll<HTMLDialogElement>("dialog.media-modal")
+		.forEach((dialog) => {
+			dialog.addEventListener("click", (e) => {
+				if (e.target === dialog) {
+					dialog.close();
+				}
+			});
+	
 		dialog.addEventListener("close", () => {
 			triggerElement?.focus();
 			triggerElement = null;

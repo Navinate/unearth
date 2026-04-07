@@ -25,6 +25,14 @@ export async function getCurrentWeekMedia(
 ): Promise<Page[]> {
 	const { start, end } = getCurrentWeekBounds(now);
 
+	console.log("[DEBUG] Build time now:", now.toISOString());
+	console.log("[DEBUG] Week bounds:", { start, end });
+	console.log("[DEBUG] NOTION_TOKEN set:", !!import.meta.env.NOTION_TOKEN);
+	console.log(
+		"[DEBUG] NOTION_MEDIA_DATASOURCE_ID:",
+		import.meta.env.NOTION_MEDIA_DATASOURCE_ID,
+	);
+
 	const response = await notion.dataSources.query({
 		data_source_id: mediaDataSourceID,
 		filter: {
@@ -46,6 +54,14 @@ export async function getCurrentWeekMedia(
 			},
 		],
 	});
+
+	console.log("[DEBUG] Notion response count:", response.results.length);
+	if (response.results.length > 0) {
+		console.log(
+			"[DEBUG] First result viewableDate:",
+			response.results[0].properties?.viewableDate,
+		);
+	}
 
 	const pages = response.results.map((page: any) => mapNotionPageToPage(page));
 
